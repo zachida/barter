@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping
@@ -28,7 +29,7 @@ public class PublicationController {
 
     @PutMapping("{userId}/publication")
     @ApiOperation(value = "Add publication for user")
-    public Publication modifyPublication(@PathVariable String userId, @RequestBody String publication) {
+    public PublicationDTO modifyPublication(@PathVariable String userId, @RequestBody String publication) {
         return null; //TODO
         /*verificar que la publicacion, no este en bid con nadie. De ser asi, cancelar los bid*/
     }
@@ -58,8 +59,11 @@ public class PublicationController {
 
     @GetMapping("/publications/find/{location}")
     @ApiOperation(value = "Listado de publicaciones por location")
-    public List<Publication> findPublicationsByLocation(@PathVariable String location) {
-        return Lists.newArrayList(); //TODO /**/
+    public List<PublicationDTO> findPublicationsByLocation(@PathVariable String location) {
+        return publicationService.findPublicationsByLocation(location)
+                .stream()
+                .map(PublicationTranslator::translateToDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/publications/find")
@@ -68,7 +72,6 @@ public class PublicationController {
         return Lists.newArrayList(); //TODO
         /*poder buscaar por palabras*/
     }
-
 
 
     @Autowired

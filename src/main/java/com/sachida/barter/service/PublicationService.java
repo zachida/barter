@@ -5,6 +5,8 @@ import com.sachida.barter.datasource.repository.PublicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PublicationService {
 
@@ -12,6 +14,10 @@ public class PublicationService {
 
     public Publication save(Publication publication){
         return publicationRepository.save(publication);
+    }
+
+    public List<Publication> findPublicationsByLocation(String location){
+        return publicationRepository.findAllByLocation(location);
     }
 
     @Autowired
