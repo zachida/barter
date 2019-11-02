@@ -44,6 +44,13 @@ public class PublicationController {
         /*solamente 2 users pueden cancelarlo, el que lo hace, o el que lo recibe*/
     }
 
+    @GetMapping("{userID}/publication/{publicationID}")
+    @ApiOperation(value = "el usuario ve las publicaciones por id")
+    public PublicationDTO getPublication(@PathVariable String userID, @PathVariable String publicationID)
+    {
+        return PublicationTranslator.translateToDTO(publicationService.get(publicationID));
+    }
+
     @GetMapping("{userId}/bids")
     @ApiOperation(value = "el usuario ve todo los bids que hice a las publicaciones")
     public void findBids(@PathVariable String userId) {
