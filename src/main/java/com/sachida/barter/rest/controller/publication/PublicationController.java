@@ -22,7 +22,8 @@ public class PublicationController {
     @PostMapping("{userId}/publication")
     @ApiOperation(value = "Add publication for user")
     public PublicationDTO addPublication(@PathVariable String userId, @RequestBody PublicationRequestDTO publication) {
-        return new PublicationDTO();
+        Publication response = publicationService.save(PublicationTranslator.translateToEntity(publication, userId));
+        return PublicationTranslator.translateToDTO(response);
     }
 
     @PutMapping("{userId}/publication")
