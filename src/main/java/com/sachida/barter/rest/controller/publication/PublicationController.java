@@ -2,6 +2,7 @@ package com.sachida.barter.rest.controller.publication;
 
 import com.google.common.collect.Lists;
 import com.sachida.barter.datasource.model.Publication;
+import com.sachida.barter.rest.api.publication.BidRequestDTO;
 import com.sachida.barter.rest.api.publication.PublicationDTO;
 import com.sachida.barter.rest.api.publication.PublicationRequestDTO;
 import com.sachida.barter.service.PublicationService;
@@ -36,7 +37,9 @@ public class PublicationController {
 
     @PostMapping("{userId}/publication/{publicationId}/bid")
     @ApiOperation(value = "Aca una persona, le ofrece su publicacion a otro usuario. Recibe de body {user_id, publication_id}")
-    public void bidPublication(@PathVariable String userId, @PathVariable String publicationId, @RequestBody String body) {
+    public void bidPublication(@PathVariable String userId, @PathVariable String publicationId, @RequestBody BidRequestDTO bidRequest) {
+        //con el bidRequest, tenemos que ir al usuario, a la publicacion y bidear eso
+
     }
 
     @PostMapping("{userId}/publication/{publicationId}/bid/{bidId}")
