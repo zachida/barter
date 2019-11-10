@@ -2,22 +2,22 @@ package com.sachida.barter.rest.api.publication;
 
 public class BidRequestDTO {
 
-    private String userId;
-    private String publicationId;
+    private String buyerId;
+    private String buyerPublicationId;
 
-    public String getUserId() {
-        return userId;
+    public String getBuyerId() {
+        return buyerId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
     }
 
-    public String getPublicationId() {
-        return publicationId;
+    public String getBuyerPublicationId() {
+        return buyerPublicationId;
     }
 
-    public void setPublicationId(String publicationId) {
-        this.publicationId = publicationId;
+    public void setBuyerPublicationId(String buyerPublicationId) {
+        this.buyerPublicationId = buyerPublicationId;
     }
 }

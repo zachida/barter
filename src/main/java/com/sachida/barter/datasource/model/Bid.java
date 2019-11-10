@@ -10,8 +10,10 @@ public class Bid  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
-    private Long publicationId;
+    private Long sellerId;
+    private Long sellerPublicationId;
+    private Long buyerId;
+    private Long buyerPublicationId;
 
     public Long getId() {
         return id;
@@ -21,19 +23,35 @@ public class Bid  implements Serializable {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getSellerId() {
+        return sellerId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
     }
 
-    public Long getPublicationId() {
-        return publicationId;
+    public Long getSellerPublicationId() {
+        return sellerPublicationId;
     }
 
-    public void setPublicationId(Long publicationId) {
-        this.publicationId = publicationId;
+    public void setSellerPublicationId(Long sellerPublicationId) {
+        this.sellerPublicationId = sellerPublicationId;
+    }
+
+    public Long getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(Long buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public Long getBuyerPublicationId() {
+        return buyerPublicationId;
+    }
+
+    public void setBuyerPublicationId(Long buyerPublicationId) {
+        this.buyerPublicationId = buyerPublicationId;
     }
 }

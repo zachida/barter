@@ -1,10 +1,14 @@
 package com.sachida.barter.rest.controller.publication;
 
 import com.google.common.collect.Lists;
+import com.sachida.barter.datasource.model.Bid;
 import com.sachida.barter.datasource.model.Publication;
+import com.sachida.barter.rest.api.publication.BidDTO;
 import com.sachida.barter.rest.api.publication.BidRequestDTO;
 import com.sachida.barter.rest.api.publication.PublicationDTO;
 import com.sachida.barter.rest.api.publication.PublicationRequestDTO;
+import com.sachida.barter.rest.controller.bid.BidTranslator;
+import com.sachida.barter.service.BidService;
 import com.sachida.barter.service.PublicationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +24,7 @@ import java.util.stream.Collectors;
 public class PublicationController {
 
     private PublicationService publicationService;
-
+    private BidService bidService;
     @PostMapping("{userId}/publication")
     @ApiOperation(value = "Add publication for user")
     public PublicationDTO addPublication(@PathVariable String userId, @RequestBody PublicationRequestDTO publication) {
@@ -37,9 +41,10 @@ public class PublicationController {
 
     @PostMapping("{userId}/publication/{publicationId}/bid")
     @ApiOperation(value = "Aca una persona, le ofrece su publicacion a otro usuario. Recibe de body {user_id, publication_id}")
-    public void bidPublication(@PathVariable String userId, @PathVariable String publicationId, @RequestBody BidRequestDTO bidRequest) {
+    public BidDTO bidPublication(@PathVariable String userId, @PathVariable String publicationId, @RequestBody BidRequestDTO bidRequest) {
         //con el bidRequest, tenemos que ir al usuario, a la publicacion y bidear eso
-
+        Bid response = bidService.bid(BidTranslator.translateToEntity(bidRequest, userId, publicationId));
+        return BidTranslator.translateToDTO(response);
     }
 
     @PostMapping("{userId}/publication/{publicationId}/bid/{bidId}")
@@ -87,6 +92,11 @@ public class PublicationController {
     @Autowired
     public void setPublicationService(PublicationService publicationService) {
         this.publicationService = publicationService;
+    }
+
+    @Autowired
+    public void setBidService(BidService bidService) {
+        this.bidService = bidService;
     }
 
 }
