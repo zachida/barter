@@ -10,14 +10,18 @@ public class UserTranslator {
         User user = new User();
         user.setName(dto.getName());
         user.setPass(dto.getPass());
+        user.setMail(dto.getMail());
+        user.setDni(dto.getDni());
         return user;
     }
 
     public static UserDTO translate(User user) {
-        UserDTO dto = new UserDTO();
-        dto.setName(user.getName());
-        dto.setPass(user.getPass());
-        dto.setId(user.getId());
-        return dto;
+        return new UserDTO(
+                user.getId(),
+                user.getName(),
+                user.getPass(),
+                user.getMail(),
+                user.getDni()
+        );
     }
 }

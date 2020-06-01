@@ -8,25 +8,32 @@ public class UserRequestDTO {
     private String name;
     @NotBlank(message = "'pass' is a required field.")
     private String pass;
+    @NotBlank(message = "'mail' is a required field.")
+    private String mail;
+    @NotBlank(message = "'dni' is a required field.")
+    private Long dni;
 
-    public UserRequestDTO(String name, String pass) {
+    public UserRequestDTO(String name, String pass, String mail, Long dni) {
         this.name = name;
         this.pass = pass;
+        this.mail = mail;
+        this.dni = dni;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPass() {
         return pass;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public String getMail() {
+        return mail;
     }
+
+    public Long getDni() {
+        return dni;
+    }
+
 }

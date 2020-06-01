@@ -66,6 +66,13 @@ public class BarterExceptionHandler {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public BarterErrorResponse handleIllegalArgumentException(IllegalArgumentException exception) {
+        logErrorWithSpace(exception.getMessage(), exception);
+        return new BarterErrorResponse(ErrorCode.BARTER_INTERNAL_ERROR, exception.getMessage());
+    }
+
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public BarterErrorResponse handleException(BarterBadRequestException exception) {
         LOGGER.error(exception.getMessage());

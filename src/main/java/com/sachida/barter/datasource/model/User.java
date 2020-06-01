@@ -14,6 +14,12 @@ public class User implements Serializable {
     private String id;
     private String name;
     private String pass;
+    //Unique
+    private String mail;
+    //Unique
+    private Long dni;
+    //TODO falta la zona de vivienda
+    //Los creditos van aca?
 
 
     public void setId(String id) {
@@ -38,5 +44,21 @@ public class User implements Serializable {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Long getDni() {
+        return dni;
+    }
+
+    public void setDni(Long dni) {
+        this.dni = dni;
     }
 }

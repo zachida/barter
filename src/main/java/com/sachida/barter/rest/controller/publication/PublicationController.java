@@ -3,13 +3,11 @@ package com.sachida.barter.rest.controller.publication;
 import com.google.common.collect.Lists;
 import com.sachida.barter.datasource.model.Bid;
 import com.sachida.barter.datasource.model.Publication;
-import com.sachida.barter.rest.api.publication.BidDTO;
-import com.sachida.barter.rest.api.publication.BidRequestDTO;
-import com.sachida.barter.rest.api.publication.PublicationDTO;
-import com.sachida.barter.rest.api.publication.PublicationRequestDTO;
+import com.sachida.barter.rest.api.publication.*;
 import com.sachida.barter.rest.controller.bid.BidTranslator;
 import com.sachida.barter.service.BidService;
 import com.sachida.barter.service.PublicationService;
+import com.sachida.barter.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +23,33 @@ public class PublicationController {
 
     private PublicationService publicationService;
     private BidService bidService;
+    private UserService userService;
+
     @PostMapping("{userId}/publication")
     @ApiOperation(value = "Add publication for user")
     public PublicationDTO addPublication(@PathVariable String userId, @RequestBody PublicationRequestDTO publication) {
-        Publication response = publicationService.save(PublicationTranslator.translateToEntity(publication, userId));
-        return PublicationTranslator.translateToDTO(response);
+
+        userService.checkIfExistUserId(userId);
+
+        return PublicationTranslator.translateToDTO(publicationService.save(PublicationTranslator.translateToEntity(publication, userId)));
     }
 
-    @PutMapping("{userId}/publication")
+    @PutMapping("{userId}/publication/{publicationId}")
     @ApiOperation(value = "Add publication for user")
-    public PublicationDTO modifyPublication(@PathVariable String userId, @RequestBody String publication) {
-        return null; //TODO
+    public PublicationDTO modifyPublication(@PathVariable String userId, @PathVariable String publicationId, @RequestBody PublicationModificationDTO modification) {
+        userService.checkIfExistUserId(userId);
+        Publication publication = publicationService.get(publicationId);
+
+        Publication modified = publicationService.modify(PublicationTranslator.modifyEntity(publication, modification));
+        return PublicationTranslator.translateToDTO(modified);
         /*verificar que la publicacion, no este en bid con nadie. De ser asi, cancelar los bid*/
     }
 
     @PostMapping("{userId}/publication/{publicationId}/bid")
     @ApiOperation(value = "Aca una persona, le ofrece su publicacion a otro usuario. Recibe de body {user_id, publication_id}")
     public BidDTO bidPublication(@PathVariable String userId, @PathVariable String publicationId, @RequestBody BidRequestDTO bidRequest) {
+        userService.checkIfExistUserId(userId);
+
         //con el bidRequest, tenemos que ir al usuario, a la publicacion y bidear eso
         Bid response = bidService.bid(BidTranslator.translateToEntity(bidRequest, userId, publicationId));
         return BidTranslator.translateToDTO(response);
@@ -50,19 +58,23 @@ public class PublicationController {
     @PostMapping("{userId}/publication/{publicationId}/bid/{bidId}")
     @ApiOperation(value = "el dueño de la publicacion, cancela el bid que no le guto")
     public void cancelBid(@PathVariable String userId, @PathVariable String publicationId, @PathVariable String bidId, @RequestBody String body) {
+        userService.checkIfExistUserId(userId);
         /*solamente 2 users pueden cancelarlo, el que lo hace, o el que lo recibe*/
     }
 
     @GetMapping("{userID}/publication/{publicationID}")
     @ApiOperation(value = "el usuario ve las publicaciones por id")
-    public PublicationDTO getPublication(@PathVariable String userID, @PathVariable String publicationID)
+    public PublicationDTO getPublication(@PathVariable String userId, @PathVariable String publicationID)
     {
+        userService.checkIfExistUserId(userId);
+
         return PublicationTranslator.translateToDTO(publicationService.get(publicationID));
     }
 
     @GetMapping("{userId}/bids")
     @ApiOperation(value = "el usuario ve todo los bids que hice a las publicaciones")
     public void findBids(@PathVariable String userId) {
+        userService.checkIfExistUserId(userId);
     }
 
     @GetMapping("{userId}/publication/{publicationId}/offers")
@@ -97,6 +109,11 @@ public class PublicationController {
     @Autowired
     public void setBidService(BidService bidService) {
         this.bidService = bidService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
 }

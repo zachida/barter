@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Entity(name="product")
 public class Product implements Serializable {
@@ -17,6 +16,10 @@ public class Product implements Serializable {
     private String description;
     private Unit unit;
     private Long userId;
+    private Long quantity;
+    //Una fOTo
+    // Se pueden detectar dependiendo la categoria, si se debe indicar si es nuevo o usado
+
 
     public String getName() {
         return name;
@@ -33,7 +36,6 @@ public class Product implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public Unit getUnit() {
         return unit;
@@ -57,5 +59,9 @@ public class Product implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getQuantity() {
+        return quantity;
     }
 }

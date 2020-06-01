@@ -3,6 +3,7 @@ package com.sachida.barter.rest.controller.publication;
 import com.sachida.barter.datasource.model.Publication;
 import com.sachida.barter.datasource.model.Status;
 import com.sachida.barter.rest.api.publication.PublicationDTO;
+import com.sachida.barter.rest.api.publication.PublicationModificationDTO;
 import com.sachida.barter.rest.api.publication.PublicationRequestDTO;
 
 public class PublicationTranslator {
@@ -25,5 +26,12 @@ public class PublicationTranslator {
         publicationDTO.setPrice(publication.getPrice());
         publicationDTO.setVisible(publication.getVisible());
         return  publicationDTO;
+    }
+
+    public static Publication modifyEntity(Publication publication, PublicationModificationDTO modify) {
+        publication.setVisible(modify.getVisible());
+        publication.setPrice(modify.getPrice());
+        publication.setLocation(modify.getLocation());
+        return  publication;
     }
 }

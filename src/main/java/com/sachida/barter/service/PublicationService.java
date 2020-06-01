@@ -27,7 +27,17 @@ public class PublicationService {
         return publicationRepository.findById(publicationId)
                 .orElseThrow(()-> new BarterNotFoundException (String.format("%s is not a saved publication", publicationId)));
     }
+    
+    public Publication modify(Publication publication) {
+        return publicationRepository.save(publication);
+    }
 
+    public void checkIfExistPublicationId(String publicationId) {
+        if (!publicationRepository.existsById(publicationId)) {
+            throw new BarterNotFoundException(String.format("%s is not a publication id", publicationId));
+        }
+    }
+    
     @Autowired
     public void setPublicationRepository(PublicationRepository publicationRepository) {
         this.publicationRepository = publicationRepository;

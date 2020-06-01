@@ -1,0 +1,108 @@
+- Usuario: (Usuario en si, o beneficiario de la solidaridad):
+    - Metodos:
+        Crear (Dar welcome bonus)
+        Modificar(Solo contraseña y ubicacion)
+        Borrar
+
+    - Validaciones:
+        Validar unicidad por dni y mail.
+        Encriptar contraseña
+        Validar mayoria de edad
+
+    - TODOs: Login con fb, g+
+
+* Un usuario tiene productos los cuales forman o se encuentran en su "canasta".
+
+- Producto:
+    - Metodos:
+        Crear
+        Modificar
+        Borrar
+
+* Una publicacion se compone por los productos de mi canasta.
+ + Una publicacion se adueña ya de los productos? O yo puedo tener varias publicaciones ofreciendo
+ lo mismo. Y en caso de vender en una el stock, las otras automaticamente se cierran?
+ Iria, por una razon de simpleza, de que cuando pones tus productos en una publicacion, se te
+ frizan y no los podes ofrecer mas. Aunque si los usas como producto en si, para pagar algo,
+ deberia haber una validacion de que ese producto esta siendo ofrecido en una publicacion y dar un
+ mensaje de que se va a pausar la publicacion
+
+- Publicacion:
+    - Metodos:
+        Crear
+        Modificar
+        Borrar
+    Si dejamos un campo en la publicacion en donde diga que necesita. Quizas se puede hacer algo para que vos ingreses en un campo
+    de busqueda "Que tenes para ofrecer", con lo que ingrese ahi, matcher con el texto de que necesita la gente, y mostrarle esas ofertas
+
+
+- Bid (Oferta):
+    Podes ofertarle a alguien:
+        - Productos
+        - Creditos
+        - Productos y creditos
+
+
+TRUEQUE - Caso de uso feliz:
+A le oferta a B su publicacion.
+La oferta de A contiene productos de su canasta.
+B acepta la oferta de A.
+a A se le restan los productos de la canasta (Si tiene publicaciones con esos productos, avisa y los pausa).
+a B se le descuenta de la publicacion
+y, en caso de que no tenga mas stock, se finaliza la publicacion.
+
+
+SUMA DE CREDITOS - Caso de uso de donacion:
+- Va a haber comedores, etc, registrados con una lista de cosas que necesitan.
+Si vos llevas y "donas" tu publicacion (con cosas de las que necesitan),
+nosotros te damos los creditos de lo que cotiza tu publicacion.
+Para esto, el comedor scanea un QR, o da aviso a nosotros (indicando lo que recibio) para activartelos.
+(Verificar que no se vuelen con los precios).
+
+
+
+
+
+
+
+- Busqueda:
+    - Busqueda por nombre de la publicacion
+    - Filtros:
+        + Cercania
+        + Rango de creditos
+
+
+    - Sugerencias de cosas para truequear en un radio de X kms
+
+    - Categorias de cosas:
+        Accesorios para vehiculos
+        Alimentos
+        Bebidas
+        Mascotas
+        Antiguedades
+        Bebes
+        Arte
+        Calzado
+        Ropa
+        Coleccionables
+        Gaming
+        Juguetes
+        Deporte
+        Electrodomesticos
+        Aire Acondicionado
+        Electronica
+        Herramientas
+        Muebles
+        Joyas
+        Libros
+        Revistas
+        Comics
+        Musica
+        Peliculas
+        Salud
+        Belleza
+        Servicios
+        Celulares
+        Vehiculos
+        Camaras
+        Otras categorias

@@ -37,6 +37,8 @@ public class UserServiceTest {
         savedUser.setName("Federico");
         savedUser.setPass("UnaPassQueTenga4Cosas!");
         savedUser.setId("34");
+        savedUser.setMail("mail@mail");
+        savedUser.setDni(1234L);
     }
 
 
@@ -44,14 +46,18 @@ public class UserServiceTest {
     public void createUser() {
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
-        UserRequestDTO request = new UserRequestDTO("Federico","UnaPassQueTenga4Cosas!");
+        UserRequestDTO request = new UserRequestDTO("Federico","UnaPassQueTenga4Cosas!", "mail@mail", 1234L);
 
         UserDTO user = userService.createUser(request);
 
         assertEquals("34", user.getId());
         assertEquals("UnaPassQueTenga4Cosas!", user.getPass());
         assertEquals("Federico", user.getName());
+        assertEquals("mail@mail", user.getMail());
+        assertEquals(Long.valueOf(1234), user.getDni());
         verify(userRepository, times(1)).save(any());
+        verify(userRepository, times(1)).findByMail(any());
+        verify(userRepository, times(1)).findByDni(any());
         verifyNoMoreInteractions(userRepository);
     }
 
@@ -99,14 +105,18 @@ public class UserServiceTest {
         modifiedUser.setName("Federico");
         modifiedUser.setPass("NuevaPassQueTiene4Cosas!");
         modifiedUser.setId("34");
+        modifiedUser.setDni(1234L);
+        modifiedUser.setMail("mail@mail");
 
-        when(userRepository.save(modifiedUser)).thenReturn(modifiedUser);
+        when(userRepository.save(any())).thenReturn(modifiedUser);
 
-        NewPassRequestDTO modifyPass = new NewPassRequestDTO("UnaPassQueTenga4Cosas", "NuevaPassQueTiene4Cosas");
+        NewPassRequestDTO modifyPass = new NewPassRequestDTO("UnaPassQueTenga4Cosas!", "NuevaPassQueTiene4Cosas!");
         UserDTO userDTO = userService.modifyPass("34", modifyPass);
 
         assertEquals("34", userDTO.getId());
         assertEquals("NuevaPassQueTiene4Cosas!", userDTO.getPass());
         assertEquals("Federico", userDTO.getName());
+        assertEquals("mail@mail", userDTO.getMail());
+        assertEquals(Long.valueOf(1234), userDTO.getDni());
     }
 }

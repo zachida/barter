@@ -3,13 +3,12 @@ package com.sachida.barter.rest.api.publication;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class PublicationRequestDTO {
+public class PublicationModificationDTO {
 
     private Map<String, Long> products;
     private BigDecimal price;
     private Boolean visible;
     private String location;
-    private String status;
 
     public BigDecimal getPrice() {
         return price;
@@ -35,11 +34,4 @@ public class PublicationRequestDTO {
         this.location = location;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

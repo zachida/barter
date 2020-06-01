@@ -16,11 +16,13 @@ public class Publication implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    //private Map<String, Long> products;
     private BigDecimal price;
     private Boolean visible;
     private String location;
     private Status status;
+    private String name;
+    private String description;
+    private Unit unit;
 
     public BigDecimal getPrice() {
         return price;
