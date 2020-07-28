@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class UserDTO implements Serializable {
 
-    private String id;
-    private String name;
-    private String pass;
-    private String mail;
-    private Long dni;
+    private final String id;
+    private final String name;
+    private final String pass;
+    private final String mail;
+    private final Long dni;
 
     public UserDTO(String id, String name, String pass, String mail, Long dni) {
         this.id = id;
